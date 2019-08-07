@@ -56,9 +56,9 @@ difference() {
 				// SD Card:
 				translate([-27, -dy, dz]) centered_cube(12, inf, 3);
 				// SIM:
-				translate([inf/2, 53.5, dz]) centered_cube(inf, 15, 3);
+				translate([-inf/2, 53.5, dz]) centered_cube(inf, 15, 3);
 				// Securecard:
-				translate([inf/2, -63, dz]) centered_cube(inf, 18, 3);
+				translate([-inf/2, -63, dz]) centered_cube(inf, 18, 3);
 			}
 			// side holes
 			let(dx = pcb_width / 2 + 2, dz = pcb_distance-inf) {
