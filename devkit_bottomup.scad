@@ -45,10 +45,10 @@ difference() {
 			// bottom holes
 			let(dy = pcb_length / 2, dz = pcb_distance + 1) { // thickness of pcb
 				// headphonejack
-				translate([28.5, -dy, dz+3]) rotate([90, 0, 0]) cylinder(inf, 4, 4);
-				translate([28.5, -dy, display_height]) centered_cube(10, 4, inf);
+				translate([29.5, -dy, dz+3]) rotate([90, 0, 0]) cylinder(inf, 4, 4);
+				translate([29.5, -dy, display_height]) centered_cube(10, 4, inf);
 				// ethernet
-				translate([13, -dy, dz]) centered_cube(15, inf, 14);
+				translate([14, -dy, dz]) centered_cube(15, inf, 14);
 				// HDMI:
 				// translate([-3, -dy, dz]) centered_cube(12, inf, 3);
 				// USB-C:
@@ -63,8 +63,8 @@ difference() {
 			// side holes
 			let(dx = pcb_width / 2 + 2, dz = pcb_distance-inf) {
 				// Killswitch bt
-				translate([dx, 4, dz]) centered_cube(border+2, 5, inf);
-				translate([dx-2, 4, -inf/2]) centered_cube(2, 2, inf);
+				translate([dx, 6, dz]) centered_cube(border+2, 5, inf);
+				translate([dx-2, 6, -inf/2]) centered_cube(2, 2, inf);
 				// Killswitch wifi
 				translate([dx, -5, dz]) centered_cube(border+2, 5, inf);
 				translate([dx-2, -5, -inf/2]) centered_cube(2, 2, inf);
@@ -73,14 +73,15 @@ difference() {
 				translate([dx-2, -15, -inf/2]) centered_cube(2, 2, inf);
 				// Switch bootmode:
 				translate([dx, -32, dz]) centered_cube(border+2, 5, inf);
+				translate([dx-2, -32, -inf/2]) centered_cube(2, 2, inf);
 				// Button reset:
-				translate([dx, -40, dz]) centered_cube(border+2, 4, inf);
+				translate([dx, -40, dz+4]) centered_cube(border+2, 4, inf);
 				// Button power:
-				translate([-dx, 30, dz]) centered_cube(border+2, 4, inf);
+				translate([-dx, 29, dz+4]) centered_cube(border+2, 4, inf);
 				// Button speaker up:
-				translate([-dx, 8.5, dz]) centered_cube(border+2, 4, inf);
+				translate([-dx, 7.5, dz+4]) centered_cube(border+2, 4, inf);
 				// Button speaker down:
-				translate([-dx, -8, dz]) centered_cube(border+2, 4, inf);
+				translate([-dx, -9.5, dz+4]) centered_cube(border+2, 4, inf);
 			}
 			// front holes
 			let(dz = -inf/2) {
