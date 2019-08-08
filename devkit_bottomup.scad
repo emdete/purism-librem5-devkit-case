@@ -62,18 +62,11 @@ difference() {
 			}
 			// side holes
 			let(dx = pcb_width / 2 + 2, dz = pcb_distance-inf) {
-				// Killswitch bt
-				translate([dx, 6, dz]) centered_cube(border+2, 5, inf);
-				translate([dx-2, 6, -inf/2]) centered_cube(2, 2, inf);
-				// Killswitch wifi
-				translate([dx, -5, dz]) centered_cube(border+2, 5, inf);
-				translate([dx-2, -5, -inf/2]) centered_cube(2, 2, inf);
-				// Killswitch mic/cam
-				translate([dx, -15, dz]) centered_cube(border+2, 5, inf);
-				translate([dx-2, -15, -inf/2]) centered_cube(2, 2, inf);
-				// Switch bootmode:
-				translate([dx, -32, dz]) centered_cube(border+2, 5, inf);
-				translate([dx-2, -32, -inf/2]) centered_cube(2, 2, inf);
+				// Switch bt, wifi, mic/cam, bootmode:
+				for (y = [6, -5, -15, -32]) {
+					translate([dx, y, dz]) centered_cube(border+2, 5, inf);
+					translate([dx-1.5, y, -inf/2]) centered_cube(2, 2, inf);
+				}
 				// Button reset:
 				translate([dx, -40, dz+3]) centered_cube(border+2, 4, inf);
 				// Button power:
@@ -94,14 +87,14 @@ difference() {
 		}
 		union() {
 			// pillars
-			let(dx = pcb_width / 2, dy = pcb_length / 2) {
+			let(dx = pcb_width / 2, dy = pcb_length / 2, r = border+2) {
 				// corners
 				for (x = [dx, -dx])
 					for (y = [dy, -dy])
-						translate([x, y, 0]) cylinder(pcb_distance, border, border);
+						translate([x, y, 0]) cylinder(pcb_distance, r, r);
 				// middle
-				translate([dx, 25, 0]) cylinder(pcb_distance, border, border);
-				translate([-dx, -25, 0]) cylinder(pcb_distance, border, border);
+				translate([dx, 25, 0]) cylinder(pcb_distance, r, r);
+				translate([-dx, -25, 0]) cylinder(pcb_distance, r, r);
 			}
 		}
 	}
