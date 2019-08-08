@@ -16,13 +16,13 @@ module centered_cube(x, y, z) {
 }
 
 inf = 200; //
-border = 5; // case border width
-display_height = 4; //
-display_width = 71;
-display_length = 148;
+border = 3; // case border width
+display_height = 2; //
+display_width = 70+1;
+display_length = 147+1;
 display_rounded = 6;
-pcb_width = 91;
-pcb_length = 181;
+pcb_width = 90+2;
+pcb_length = 180+2;
 pcb_distance = 6; // from display surface
 
 difference() {
@@ -75,13 +75,13 @@ difference() {
 				translate([dx, -32, dz]) centered_cube(border+2, 5, inf);
 				translate([dx-2, -32, -inf/2]) centered_cube(2, 2, inf);
 				// Button reset:
-				translate([dx, -40, dz+4]) centered_cube(border+2, 4, inf);
+				translate([dx, -40, dz+3]) centered_cube(border+2, 4, inf);
 				// Button power:
-				translate([-dx, 29, dz+4]) centered_cube(border+2, 4, inf);
+				translate([-dx, 29, dz+3]) centered_cube(border+2, 4, inf);
 				// Button speaker up:
-				translate([-dx, 7.5, dz+4]) centered_cube(border+2, 4, inf);
+				translate([-dx, 7.5, dz+3]) centered_cube(border+2, 4, inf);
 				// Button speaker down:
-				translate([-dx, -9.5, dz+4]) centered_cube(border+2, 4, inf);
+				translate([-dx, -9.5, dz+3]) centered_cube(border+2, 4, inf);
 			}
 			// front holes
 			let(dz = -inf/2) {
@@ -96,13 +96,12 @@ difference() {
 			// pillars
 			let(dx = pcb_width / 2, dy = pcb_length / 2) {
 				// corners
-				translate([dx, dy, 0]) cylinder(6, border, border);
-				translate([dx, -dy, 0]) cylinder(6, border, border);
-				translate([-dx, dy, 0]) cylinder(6, border, border);
-				translate([-dx, -dy, 0]) cylinder(6, border, border);
+				for (x = [dx, -dx])
+					for (y = [dy, -dy])
+						translate([x, y, 0]) cylinder(pcb_distance, border, border);
 				// middle
-				translate([dx, 25, 0]) cylinder(6, border, border);
-				translate([-dx, -25, 0]) cylinder(6, border, border);
+				translate([dx, 25, 0]) cylinder(pcb_distance, border, border);
+				translate([-dx, -25, 0]) cylinder(pcb_distance, border, border);
 			}
 		}
 	}
