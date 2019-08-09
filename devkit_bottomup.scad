@@ -16,7 +16,8 @@ module centered_cube(x, y, z) {
 }
 
 inf = 200; //
-border = 3; // case border width
+border = 4; // case border width
+case_rounded = border/2;
 display_height = 2; //
 display_width = 70+1;
 display_length = 147+1;
@@ -26,19 +27,16 @@ pcb_length = 180+2;
 pcb_distance = 6; // from display surface
 
 difference() {
-	centered_cube(pcb_width+2*border, pcb_length+2*border, 30);
+	minkowski() {
+		sphere(r = case_rounded);
+		translate([0, 0, case_rounded]) centered_cube(pcb_width+2*(border-case_rounded), pcb_length+2*(border-case_rounded), 30-2*case_rounded);
+	}
 	difference() {
 		union() {
 			// display
-			translate([0, 0, -inf/2]) union() {
-				translate([0, 0, 0]) centered_cube(display_width, display_length-2*display_rounded, inf);
-				translate([0, 0, 0]) centered_cube(display_width-2*display_rounded, display_length, inf);
-				dx = display_width/2-display_rounded;
-				dy = display_length/2-display_rounded;
-				translate([dx, dy, 0]) cylinder(inf, display_rounded, display_rounded);
-				translate([dx, -dy, 0]) cylinder(inf, display_rounded, display_rounded);
-				translate([-dx, dy, 0]) cylinder(inf, display_rounded, display_rounded);
-				translate([-dx, -dy, 0]) cylinder(inf, display_rounded, display_rounded);
+			minkowski(){
+				centered_cube(display_width-2*display_rounded, display_length-2*display_rounded, inf);
+				cylinder(inf, display_rounded, display_rounded);
 			}
 			// pcb
 			translate([0, 0, display_height]) centered_cube(pcb_width, pcb_length, inf);
