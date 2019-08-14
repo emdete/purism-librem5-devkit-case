@@ -11,13 +11,12 @@
 	fix it.
 */
 $fn=40;
-module centered_cube(x, y, z) {
+module centered_cube(x, y, z) { // create x/y centered cube
 	translate([-x/2, -y/2, 0]) cube([x, y, z]);
 }
 
-inf = 200; //
+inf = 999; //
 border = 4; // case border width
-case_rounded = border/2;
 display_height = 2; //
 display_width = 70+1;
 display_length = 147+1;
@@ -26,17 +25,20 @@ pcb_width = 90+2;
 pcb_length = 180+2;
 pcb_distance = 6; // from display surface
 
-difference() {
-	minkowski() {
-		sphere(r = case_rounded);
-		translate([0, 0, case_rounded]) centered_cube(pcb_width+2*(border-case_rounded), pcb_length+2*(border-case_rounded), 30-2*case_rounded);
+color("#ee9900", alpha = .6) difference() {
+	let(case_rounded = border/2) {
+		minkowski() { // as suggested by kortschak: use minkowski!
+			sphere(r = case_rounded);
+			translate([0, 0, case_rounded])
+				centered_cube(pcb_width+2*(border-case_rounded), pcb_length+2*(border-case_rounded), 30-2*case_rounded);
+		}
 	}
 	difference() {
 		union() {
 			// display
-			minkowski(){
-				centered_cube(display_width-2*display_rounded, display_length-2*display_rounded, inf);
+			translate([0, 0, -inf/2]) minkowski(){
 				cylinder(inf, display_rounded, display_rounded);
+				centered_cube(display_width-2*display_rounded, display_length-2*display_rounded, inf);
 			}
 			// pcb
 			translate([0, 0, display_height]) centered_cube(pcb_width, pcb_length, inf);
@@ -44,7 +46,7 @@ difference() {
 			let(dy = pcb_length / 2, dz = pcb_distance + 1) { // thickness of pcb
 				// headphonejack
 				translate([29.5, -dy, dz+3]) rotate([90, 0, 0]) cylinder(inf, 4, 4);
-				translate([29.5, -dy, display_height]) centered_cube(10, 4, inf);
+				translate([29.5, -dy, display_height]) centered_cube(10, 4, 30-display_height-2); // to move in
 				// ethernet
 				translate([14, -dy, dz]) centered_cube(15, inf, 14);
 				// HDMI:
@@ -63,7 +65,7 @@ difference() {
 				// Switch bt, wifi, mic/cam, bootmode:
 				for (y = [6, -5, -15, -32]) {
 					translate([dx, y, dz]) centered_cube(border+2, 5, inf);
-					translate([dx-1.5, y, -inf/2]) centered_cube(2, 2, inf);
+					translate([dx-1.5, y, -inf+30-2]) centered_cube(2, 2, inf); // to move in
 				}
 				// Button reset:
 				translate([dx, -40, dz+3]) centered_cube(border+2, 4, inf);

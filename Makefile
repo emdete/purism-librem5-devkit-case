@@ -1,3 +1,4 @@
+# see https://www.openscad.org/cheatsheet/index.html
 OSFLAGS=--imgsize 1440,720 --colorscheme Solarized
 
 all: devkit_bottomup_bottom.png devkit_bottomup_right.png devkit_bottomup_front.png devkit_bottomup.png devkit_bottomup.stl
